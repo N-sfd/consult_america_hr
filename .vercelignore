@@ -2,13 +2,7 @@ node_modules
 .angular
 .git
 .vscode
-src
-public
+dist
 *.md
-proxy.conf.json
-tsconfig*.json
-angular.json
-package-lock.json
 .hintrc
-.gitignore
 agent-transcripts
