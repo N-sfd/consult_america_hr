@@ -1,23 +1,13 @@
 services:
   - type: web
-    name: consult-america-hr-backend
+    name: consult-america-hr-api
     env: docker
     plan: free
     rootDir: backend
     dockerfilePath: ./Dockerfile
     envVars:
-      - key: SPRING_DATASOURCE_USERNAME
-        fromDatabase:
-          name: consult-america-hr-db
-          property: user
-      - key: SPRING_DATASOURCE_PASSWORD
-        fromDatabase:
-          name: consult-america-hr-db
-          property: password
-      - key: SPRING_DATASOURCE_URL
-        fromDatabase:
-          name: consult-america-hr-db
-          property: connectionString
+      - key: DATABASE_URL
+        sync: false
       - key: CORS_ALLOWED_ORIGINS
         value: https://consult-america-hr-nine.vercel.app,http://localhost:4200
       - key: FRONTEND_URL
@@ -26,6 +16,3 @@ services:
         value: "false"
       - key: JPA_DDL_AUTO
         value: update
-databases:
-  - name: consult-america-hr-db
-    plan: starter

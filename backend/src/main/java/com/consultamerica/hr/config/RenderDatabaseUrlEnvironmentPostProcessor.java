@@ -15,6 +15,9 @@ public class RenderDatabaseUrlEnvironmentPostProcessor implements EnvironmentPos
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         String datasourceUrl = environment.getProperty("SPRING_DATASOURCE_URL");
         if (!StringUtils.hasText(datasourceUrl)) {
+            datasourceUrl = environment.getProperty("DATABASE_URL");
+        }
+        if (!StringUtils.hasText(datasourceUrl)) {
             return;
         }
 

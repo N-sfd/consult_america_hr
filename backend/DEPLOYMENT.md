@@ -13,14 +13,14 @@ git push origin main
 ## 2. Provision on Render
 
 **Option A — Blueprint (recommended, one step):**
-1. In the Render dashboard: New → Blueprint → connect the `N-sfd/consult_america_hr` GitHub repo. Render reads `render.yaml` at the repo root — it's configured with `rootDir: backend`, so the web service builds only from the `backend/` subdirectory and won't touch the Angular app. It provisions both the web service and the Postgres database.
-3. Render injects the database connection string automatically via `SPRING_DATASOURCE_URL`, and the backend now normalizes Render's `postgres://...` URL into the JDBC form it expects at startup. No manual env-var edit is required.
-4. Trigger a manual redeploy if you want to ensure the first deploy uses the new connection string.
+1. In the Render dashboard: New → Blueprint → connect the `N-sfd/consult_america_hr` GitHub repo. Render reads `render.yaml` at the repo root — it's configured with `rootDir: backend`, so the web service builds only from the `backend/` subdirectory and won't touch the Angular app. It deploys only the web service; the database is provided by an external free provider like Supabase or Neon.
+2. Add the required secret `DATABASE_URL` in the Render web service settings, pointing to your external Postgres database.
+3. Trigger a manual redeploy if you want to ensure the first deploy uses the new connection string.
 
 **Option B — Manual:**
-1. New → PostgreSQL → create a free instance, note the connection details.
+1. New → PostgreSQL on an external free provider (for example Supabase or Neon) and note the connection URL.
 2. New → Web Service → connect the `N-sfd/consult_america_hr` repo → set **Root Directory** to `backend` → Environment: Docker.
-3. Set env vars: `SPRING_DATASOURCE_URL` (JDBC form, see above), `SPRING_DATASOURCE_USERNAME`, `SPRING_DATASOURCE_PASSWORD`, `CORS_ALLOWED_ORIGINS`, `FRONTEND_URL`, `MAIL_ENABLED=false`, `JPA_DDL_AUTO=update`.
+3. Set env vars: `DATABASE_URL`, `CORS_ALLOWED_ORIGINS`, `FRONTEND_URL`, `MAIL_ENABLED=false`, `JPA_DDL_AUTO=update`.
 
 Vercel (the frontend deploy) already ignores the `backend/` directory via `.vercelignore`, so this doesn't affect the existing frontend deployment.
 
