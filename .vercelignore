@@ -6,3 +6,4 @@ dist
 *.md
 .hintrc
 agent-transcripts
+backend
