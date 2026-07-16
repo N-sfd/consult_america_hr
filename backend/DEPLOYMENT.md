@@ -14,13 +14,8 @@ git push origin main
 
 **Option A — Blueprint (recommended, one step):**
 1. In the Render dashboard: New → Blueprint → connect the `N-sfd/consult_america_hr` GitHub repo. Render reads `render.yaml` at the repo root — it's configured with `rootDir: backend`, so the web service builds only from the `backend/` subdirectory and won't touch the Angular app. It provisions both the web service and the Postgres database.
-2. After the first deploy, open the `consult-america-hr-db` Postgres instance → "Connections" tab, and copy the **Internal Database URL** host/port/database name.
-3. On the `consult-america-hr-backend` web service → Environment, replace the placeholder `SPRING_DATASOURCE_URL` with:
-   ```
-   jdbc:postgresql://<internal-host>:5432/<database-name>
-   ```
-   (Render's Blueprint-injected connection string isn't JDBC-prefixed, so this manual one-time fix is required — see the comment in `render.yaml`.)
-4. Trigger a manual redeploy so the corrected env var takes effect.
+3. Render injects the database connection string automatically via `SPRING_DATASOURCE_URL`, and the backend now normalizes Render's `postgres://...` URL into the JDBC form it expects at startup. No manual env-var edit is required.
+4. Trigger a manual redeploy if you want to ensure the first deploy uses the new connection string.
 
 **Option B — Manual:**
 1. New → PostgreSQL → create a free instance, note the connection details.

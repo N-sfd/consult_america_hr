@@ -14,12 +14,10 @@ services:
         fromDatabase:
           name: consult-america-hr-db
           property: password
-      # SPRING_DATASOURCE_URL must be set manually in the Render dashboard after first deploy,
-      # in the form jdbc:postgresql://<host>:<port>/<database> (copy host/port/database from the
-      # Postgres instance's "Connections" panel) — Render's fromDatabase connectionString is not
-      # JDBC-prefixed. See backend/DEPLOYMENT.md.
       - key: SPRING_DATASOURCE_URL
-        value: "REPLACE_ME_jdbc_postgresql_url"
+        fromDatabase:
+          name: consult-america-hr-db
+          property: connectionString
       - key: CORS_ALLOWED_ORIGINS
         value: https://consult-america-hr-nine.vercel.app,http://localhost:4200
       - key: FRONTEND_URL
