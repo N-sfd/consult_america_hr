@@ -25,6 +25,7 @@ export class Dashboard implements OnInit {
     weeklyUploads: 0
   };
   selectedTags: string[] = [];
+loadError: string | null = null;
 isEditMode = false;
 editingResumeId: string | null = null;
 resumeText: string = '';
@@ -147,31 +148,27 @@ onSearchEnter(): void {
 
   loadResumes(): void {
     this.showLoading(true, 'table');
+    this.loadError = null;
     this.http.get(this.API_BASE, {withCredentials: true}).subscribe({
       next: (resumes: any) => {
   this.originalResumes = Array.isArray(resumes?.content) ? resumes.content : [];
   // keep a working copy
   this.currentResumes = [...this.originalResumes];
-       // console.log("Current Resume" + this.currentResumes.toString);
-        console.log("Current Resumes:", JSON.stringify(this.currentResumes, null, 2));
-
-        //this.loadStats();
   // Apply any active filters/search/tags
   this.filterResumes(this.searchTerm || '');
       },
       error: (err: any) => {
         console.error('Failed to load resumes', err);
-        // If server returned a HTTP status, provide actionable guidance
+        this.currentResumes = [];
+        this.originalResumes = [];
+        // Show a quiet inline message instead of an unprompted modal popup
         const status = err?.status;
         if (status === 403) {
-          Swal.fire({
-            title: 'Access denied (403)',
-            html: `The resumes endpoint returned <b>403 Forbidden</b>.<br/><br/>Possible causes:<ul><li>Authentication required (cookies/session missing)</li><li>CORS or server config blocking requests from this origin</li><li>Wrong API base URL</li></ul><br/>Check your backend auth and CORS settings, or use the correct <code>environment.apiBaseUrl</code>.`,
-            icon: 'error'
-          });
+          this.loadError = 'Access denied (403). Please sign in again or contact an administrator.';
+        } else if (status === 0) {
+          this.loadError = 'Unable to reach the server. The backend may be offline or unreachable.';
         } else {
-          const msg = err?.message || JSON.stringify(err);
-          Swal.fire('Failed to load resumes', `<pre style="text-align:left;white-space:pre-wrap">${msg}</pre>`, 'error');
+          this.loadError = 'Failed to load resumes. Please try again later.';
         }
       },
       complete: () => {
@@ -344,7 +341,6 @@ handleSearchInput(event: Event): void {
 
  async deleteResume(id: string): Promise<void> {
   try {
-    debugger;
     this.showLoading(true, 'delete');
 
     const response = await fetch(`${this.API_BASE}/${id}`, {

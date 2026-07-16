@@ -62,6 +62,10 @@
         </div>
       </div>
 
+      <div *ngIf="loadError" class="alert alert-warning" role="alert" style="margin-bottom:12px">
+        {{ loadError }}
+      </div>
+
       <div class="table-responsive">
         <table class="table">
           <thead class="table-header">
@@ -108,7 +112,7 @@
                   <button class="btn btn-download" (click)="downloadResume(resume.id)"><i class="bi bi-download"></i> Download</button>
                   <button class="btn btn-email" (click)="showEmailDialog(resume.id,resume.email,resume.summary)" title="Send Profile"><i class="bi bi-envelope"></i> Email</button>
                   <button class="btn btn-edit" (click)="EditDialog(resume)"><i class="bi bi-pencil"></i> Edit</button>
-                  <button class="btn btn-delete" (click)="confirmDeleteResume(resume.id)"><i class="bi bi-trash"></i></button>
+                  <button class="btn btn-delete" (click)="confirmDeleteResume(resume.id)" title="Delete resume" aria-label="Delete resume"><i class="bi bi-trash"></i></button>
                 </div>
               </td>
             </tr>
