@@ -56,4 +56,4 @@ No code changes needed — the app already reads these at startup.
 ## Notes
 
 - Render's free web service tier spins down after inactivity; the first request after idling will be slow (cold start).
-- Render's free Postgres tier expires after a set retention period — check Render's current terms before relying on it long-term for real data.
+- Render's free Postgres tier can be blocked by account limits when another free database is already active. The blueprint uses the starter Postgres plan to avoid that provisioning failure.

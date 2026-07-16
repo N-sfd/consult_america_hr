@@ -28,4 +28,4 @@ services:
         value: update
 databases:
   - name: consult-america-hr-db
-    plan: free
+    plan: starter
