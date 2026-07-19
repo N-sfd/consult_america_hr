@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CandidateService } from '../services/candidate';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-candidate-detail',
   templateUrl: './candidate-details.html',

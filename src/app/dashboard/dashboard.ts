@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import Toastify from 'toastify-js';
 import { NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { SentEmailService } from '../services/sent-email'
 @Component({
   selector: 'app-dashboard',

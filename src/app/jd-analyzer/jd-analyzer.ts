@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient, HttpEventType, HttpClientModule } from '@angular/common/http';
 import Swal from 'sweetalert2';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { NgIf, CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 

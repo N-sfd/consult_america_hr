@@ -5,7 +5,7 @@ import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-job-post',

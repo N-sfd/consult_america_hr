@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { F } from '@angular/cdk/keycodes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.html',

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JobPosts } from '../models/jobModel';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class JobService {
   private apiUrl = `${environment.apiBaseUrl}/jobs`;

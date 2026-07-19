@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { UserProfileModel } from '../models/userProfileModel'
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })

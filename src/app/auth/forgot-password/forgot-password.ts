@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-forgot-password',
