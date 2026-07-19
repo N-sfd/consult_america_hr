@@ -51,8 +51,13 @@ public class UserProfileService {
         String candidateEmail = payload != null && payload.get("email") != null
             ? String.valueOf(payload.get("email"))
             : null;
-        if (candidateEmail == null) {
-            candidateEmail = repository.findById(candidateId).map(UserProfile::getEmail).orElse(null);
+        if (candidateEmail == null && candidateId != null) {
+            candidateEmail = repository.findById(candidateId)
+                .map(up -> {
+                    java.util.Objects.requireNonNull(up);
+                    return up.getEmail();
+                })
+                .orElse(null);
         }
         if (candidateEmail != null) {
             emailService.sendProfileCompleteNotification(candidateEmail, payload);

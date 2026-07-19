@@ -31,7 +31,7 @@ public class RenderDatabaseUrlEnvironmentPostProcessor implements EnvironmentPos
         boolean addedAuth = false;
 
         // If the URL contains auth (user:pass@host...), extract and set username/password when not already provided
-        if ((datasourceUrl.startsWith("postgres://") || datasourceUrl.startsWith("postgresql://")) && (!StringUtils.hasText(existingUsername) || !StringUtils.hasText(existingPassword))) {
+        if (datasourceUrl != null && (datasourceUrl.startsWith("postgres://") || datasourceUrl.startsWith("postgresql://")) && (!StringUtils.hasText(existingUsername) || !StringUtils.hasText(existingPassword))) {
             String withoutScheme = datasourceUrl.substring(datasourceUrl.indexOf("://") + 3);
             String[] parts = withoutScheme.split("@", 2);
             if (parts.length > 1) {
@@ -52,7 +52,7 @@ public class RenderDatabaseUrlEnvironmentPostProcessor implements EnvironmentPos
             }
         }
 
-        boolean urlChanged = !datasourceUrl.equals(normalizedUrl);
+        boolean urlChanged = !java.util.Objects.equals(datasourceUrl, normalizedUrl);
         if (urlChanged) {
             props.put("SPRING_DATASOURCE_URL", normalizedUrl);
         }

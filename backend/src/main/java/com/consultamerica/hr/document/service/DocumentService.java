@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class DocumentService {
@@ -20,6 +21,8 @@ public class DocumentService {
     }
 
     public Document upload(MultipartFile file, Long userId, String documentType) {
+        Objects.requireNonNull(file, "file is required");
+        Objects.requireNonNull(userId, "userId is required");
         FileValidationUtil.validate(file);
 
         Document document = new Document();
@@ -36,10 +39,12 @@ public class DocumentService {
     }
 
     public List<Document> listByUser(Long userId) {
+        Objects.requireNonNull(userId, "userId is required");
         return repository.findByUserId(userId);
     }
 
     public void delete(Long id) {
+        Objects.requireNonNull(id, "id is required");
         if (!repository.existsById(id)) {
             throw new ResourceNotFoundException("Document not found: " + id);
         }

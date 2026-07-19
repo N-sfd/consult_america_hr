@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class JobService {
@@ -36,6 +37,7 @@ public class JobService {
     }
 
     public JobPosts getJob(Long id) {
+        Objects.requireNonNull(id, "id is required");
         return repository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Job not found: " + id));
     }

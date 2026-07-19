@@ -4,12 +4,12 @@ import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class EmailService {
@@ -38,13 +38,20 @@ public class EmailService {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,
                 message.attachmentBytes() != null, "UTF-8");
-            helper.setFrom(properties.getFrom());
-            helper.setTo(message.to());
-            helper.setSubject(message.subject());
-            helper.setText(message.body(), false);
+            String from = Objects.requireNonNull(properties.getFrom(), "email.from must be configured");
+            String to = Objects.requireNonNull(message.to(), "email recipient is required");
+            String subject = message.subject() == null ? "" : message.subject();
+            String body = message.body() == null ? "" : message.body();
+
+            helper.setFrom(from);
+            helper.setTo(to);
+            java.util.Objects.requireNonNull(subject);
+            java.util.Objects.requireNonNull(body);
+            helper.setSubject(subject);
+            helper.setText(body, false);
             if (message.attachmentBytes() != null && message.attachmentName() != null) {
-                helper.addAttachment(message.attachmentName(),
-                    new org.springframework.core.io.ByteArrayResource(message.attachmentBytes()));
+                helper.addAttachment(Objects.requireNonNull(message.attachmentName()),
+                    new org.springframework.core.io.ByteArrayResource(Objects.requireNonNull(message.attachmentBytes())));
             }
             mailSender.send(mimeMessage);
         } catch (Exception ex) {

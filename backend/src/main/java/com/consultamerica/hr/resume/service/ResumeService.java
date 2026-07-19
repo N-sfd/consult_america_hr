@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ResumeService {
@@ -45,6 +46,7 @@ public class ResumeService {
 
     public Resume updateResume(Long id, MultipartFile file, String name, String email, String title,
                                 String visaStatus, String linkedln, String summary) {
+        Objects.requireNonNull(id, "id is required");
         Resume resume = getById(id);
         resume.setName(FileValidationUtil.normalize(name));
         resume.setEmail(FileValidationUtil.normalize(email));
@@ -72,6 +74,7 @@ public class ResumeService {
     }
 
     public Resume getById(Long id) {
+        Objects.requireNonNull(id, "id is required");
         return resumeRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Resume not found: " + id));
     }
@@ -81,6 +84,7 @@ public class ResumeService {
     }
 
     public void deleteResume(Long id) {
+        Objects.requireNonNull(id, "id is required");
         if (!resumeRepository.existsById(id)) {
             throw new ResourceNotFoundException("Resume not found: " + id);
         }
@@ -88,6 +92,7 @@ public class ResumeService {
     }
 
     public void sendProfile(Long id, String recipientEmail, String subject, String customMessage) {
+        Objects.requireNonNull(id, "id is required");
         Resume resume = getById(id);
         emailService.sendResumeProfile(recipientEmail, subject, customMessage,
             resume.getFileBytes(), resume.getFileName(), resume.getFileContentType());

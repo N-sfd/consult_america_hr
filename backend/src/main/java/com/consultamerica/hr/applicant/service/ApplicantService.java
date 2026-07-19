@@ -7,8 +7,10 @@ import com.consultamerica.hr.common.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
+@SuppressWarnings("null")
 public class ApplicantService {
 
     private final ApplicantRepository repository;
@@ -22,23 +24,32 @@ public class ApplicantService {
     }
 
     public Applicant get(Long id) {
+        Objects.requireNonNull(id, "id is required");
         return repository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Applicant not found: " + id));
     }
 
+    @SuppressWarnings("null")
     public Applicant create(ApplicantRequest request) {
+        Objects.requireNonNull(request, "request is required");
         Applicant applicant = new Applicant();
         apply(applicant, request);
-        return repository.save(applicant);
+        applicant = java.util.Objects.requireNonNull(applicant, "applicant cannot be null");
+        Applicant saved = java.util.Objects.requireNonNull(repository.save(applicant));
+        return saved;
     }
 
     public Applicant update(Long id, ApplicantRequest request) {
+        Objects.requireNonNull(id, "id is required");
+        Objects.requireNonNull(request, "request is required");
         Applicant applicant = get(id);
         apply(applicant, request);
-        return repository.save(applicant);
+        Applicant saved = java.util.Objects.requireNonNull(repository.save(applicant));
+        return saved;
     }
 
     public void delete(Long id) {
+        Objects.requireNonNull(id, "id is required");
         if (!repository.existsById(id)) {
             throw new ResourceNotFoundException("Applicant not found: " + id);
         }

@@ -44,8 +44,10 @@ public class DocumentController {
     @DeleteMapping(value = "/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> delete(@PathVariable Long id) {
         service.delete(id);
+        MediaType mt = MediaType.TEXT_PLAIN;
+        java.util.Objects.requireNonNull(mt);
         return ResponseEntity.ok()
-            .contentType(MediaType.TEXT_PLAIN)
+            .contentType(mt)
             .body("Document deleted successfully");
     }
 }

@@ -79,9 +79,18 @@ public class ResumeController {
         if (resume.getFileBytes() == null || resume.getFileBytes().length == 0) {
             throw new ResourceNotFoundException("No file stored for resume: " + id);
         }
-        MediaType contentType = resume.getFileContentType() != null
-            ? MediaType.parseMediaType(resume.getFileContentType())
-            : MediaType.APPLICATION_OCTET_STREAM;
+        MediaType contentType;
+        try {
+            String fct = resume.getFileContentType();
+            if (fct != null) {
+                contentType = MediaType.parseMediaType(fct);
+            } else {
+                contentType = MediaType.APPLICATION_OCTET_STREAM;
+            }
+        } catch (Exception ex) {
+            contentType = MediaType.APPLICATION_OCTET_STREAM;
+        }
+        java.util.Objects.requireNonNull(contentType);
 
         return ResponseEntity.ok()
             .contentType(contentType)
