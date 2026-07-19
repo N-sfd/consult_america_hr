@@ -37,9 +37,16 @@ private apiUrl = `${environment.apiBaseUrl}`;
   }
 
   onSubmit() {
-    console.log("FORMDATA = " ,this.formData);
-    if (!this.formData.resumeFile || !this.formData.name) {
-      this.message = 'Name and file are required!';
+    const missingName = !this.formData.name;
+    const missingFile = !this.formData.resumeFile;
+    if (missingName || missingFile) {
+      if (missingName && missingFile) {
+        this.message = 'Name and a resume file are required!';
+      } else if (missingName) {
+        this.message = 'Name is required!';
+      } else {
+        this.message = 'A resume file is required!';
+      }
       return;
     }
 
