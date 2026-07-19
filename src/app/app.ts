@@ -16,8 +16,6 @@ import { RegistrationComponent } from './auth/registration/registration.componen
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ApplicantsComponent } from './applicants/applicants.component';
-import { ApplicantFormDialogComponent } from './applicants/applicant-form-dialog.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 @Component({
@@ -32,18 +30,10 @@ import { MatSortModule } from '@angular/material/sort';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatIconModule,
     MatTableModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-    
-    
-  ApplicantsComponent,
-  ApplicantFormDialogComponent,
-  MatTabsModule,
-  // Angular Material table cell/row directives for standalone usage
-  // (these are re-exported by MatTableModule, but explicit import can help with template errors)
-  // No explicit import needed for matHeaderCellDef, matCellDef, matHeaderRowDef, matRowDef if MatTableModule is present
+    MatTabsModule,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'

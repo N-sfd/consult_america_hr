@@ -25,6 +25,10 @@
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
+            "allowedCommonJsDependencies": [
+              "sweetalert2",
+              "toastify-js"
+            ],
             "inlineStyleLanguage": "scss",
             "assets": [
               {

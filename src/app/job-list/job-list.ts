@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JobPosts } from '../models/jobModel';
 import { JobService } from '../services/job.service';
-import { DatePipe, NgIf, NgFor, NgClass } from '@angular/common';
+import { NgIf, NgFor, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -17,15 +17,13 @@ import { Router } from '@angular/router';
   selector: 'app-job-list',
   standalone: true,
   imports: [
-    DatePipe,
     NgIf,
     NgFor,
+    NgClass,
     FormsModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-     NgClass,
-     MatButtonModule,
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule

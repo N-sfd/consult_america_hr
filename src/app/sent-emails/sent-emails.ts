@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { DatePipe, NgIf, NgFor, UpperCasePipe, NgClass } from '@angular/common';
+import { DatePipe, NgIf, NgFor, UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { SentEmailService, SentEmail } from '../services/sent-email';
@@ -11,7 +11,7 @@ type SortKey = 'date_desc' | 'date_asc' | 'candidate_asc' | 'position_asc';
   templateUrl: './sent-emails.html',
   styleUrls: ['./sent-emails.scss'],
   standalone: true,
-  imports: [DatePipe, NgIf, NgFor, UpperCasePipe, NgClass, FormsModule],
+  imports: [DatePipe, NgIf, NgFor, UpperCasePipe, FormsModule],
 })
 export class SentEmailsComponent implements OnInit {
   sentEmails: SentEmail[] = [];

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import Toastify from 'toastify-js';
-import { DatePipe, NgIf, NgFor } from '@angular/common'; 
+import { NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../environments/environment.prod';
 import { SentEmailService } from '../services/sent-email'
@@ -11,8 +11,7 @@ import { SentEmailService } from '../services/sent-email'
   selector: 'app-dashboard',
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss'],
-   providers: [DatePipe],
-   imports: [DatePipe, NgIf, NgFor, FormsModule],
+   imports: [NgIf, NgFor, FormsModule],
 })
 export class Dashboard implements OnInit {
   API_BASE = `${environment.apiBaseUrl}/resumes`;
