@@ -6,7 +6,8 @@
     "outDir": "./out-tsc/spec",
     "forceConsistentCasingInFileNames": true,
     "types": [
-      "jasmine"
+      "jasmine",
+      "node"
     ]
   },
   "include": [
